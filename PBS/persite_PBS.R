@@ -1,4 +1,3 @@
-setwd("~/Documents/Berkeley/haenyeo/pbsScanv11/")
 library(ggplot2)
 library(stringr)
 library(ggrepel)
@@ -31,10 +30,6 @@ persitefst$pbs1 = (fst12 + fst13 - fst23) / 2
 persitefst$pbs2 = (fst12 + fst23 - fst13) / 2
 persitefst$pbs3 = (fst13 + fst23 - fst12) / 2
 
-#quantile(persitefst$pbs1)
-#0%          25%          50%          75%         100% 
-#-2.095085120 -0.006527248 -0.002356547  0.008298388  1.641828180 
-
 
 pbs_fil<-persitefst[persitefst$pbs1>0,]
 
@@ -42,73 +37,9 @@ pbs_fil<-persitefst[persitefst$pbs1>0,]
 gezero<-persitefst[persitefst$pbs1>0,]
 pbs_fil<-gezero[gezero$pbs1<10,]
 
-#quantile(pbs_fil$pbs1)
-#0%          25%          50%          75%         100% 
-#1.690610e-09 4.545145e-03 1.184028e-02 2.532697e-02 8.771309e-01 
 
 toplot<-quantile(pbs_fil$pbs1,.75)
 pbs_fil2plot<-pbs_fil[pbs_fil$pbs1>toplot,]
-
-################chr6#################
-chr6_only<-pbs_fil2plot[pbs_fil2plot$CHROM=="6",]
-cutoff<-quantile(chr6_only$pbs1,.99)
-chr6hits<-chr6_only[chr6_only$pbs1>=.11,]
-chr6hits$CHROM<-paste0("chr",chr6hits$CHROM)
-write.table(chr6hits[c("CHROM","POS","POS","pbs1")],
-            paste0(pbs1,"_pbs_outliers_top_persite_chr6",outquantile,".bed"),
-            quote = F,sep = "\t",row.names = F)
-annotatedchr6<- read.delim(paste0("HAE_JEJU_pbs_anno25_chr6.bed"), header=FALSE)
-colnames(annotatedchr6)<-c("CHROM","BIN_START","BIN_END","pbs1","gene")
-
-anno_reduced<-annotatedchr6 %>% group_by(gene) %>% top_n(1, pbs1)%>% top_n(1, BIN_START)
-anno_commas<-anno_reduced %>%
-  group_by(CHROM,BIN_START,BIN_END,pbs1)%>%
-  summarize(gene= str_c(gene, collapse = "\n "), .groups = 'drop')
-
-chr6_only$CHROM<-paste0("chr",chr6_only$CHROM)
-temp<-merge(chr6_only,anno_commas,by.x=c("CHROM","POS","pbs1"),by.y=c("CHROM","BIN_END","pbs1"),all.x = T)
-
-
-newdata <- temp[order(parse_number(temp$CHROM)),] 
-
-
-newdata$SNPs<-1:nrow(newdata)
-axis_set <- newdata %>% 
-  group_by(CHROM) %>% 
-  summarize(center = mean(SNPs))
-
-h<-ggplot(newdata, aes(x=SNPs,y=pbs1,label=gene,color=as.factor(parse_number(CHROM))))+
-  geom_point(size=1.5)+theme_classic(base_size=14)+ggtitle(custom_title)+
-  scale_x_continuous(label = axis_set$CHROM, breaks = axis_set$center) +
-  scale_color_manual(values = rep(c(color1, "gray"), unique(length(axis_set$CHROM))))+
-  theme(legend.position = "none",
-        panel.border = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.text.x = element_text(angle = 60, size = 8, vjust = 0.5))+
-  #ylim( c(0, max(alldata$pbs1) ))+
-  xlab("Chromosome")+ylab(TeX("$PBS_{HAE+JEJU}$"))    +
-  #geom_text_repel(size=3,max.overlaps = 50,fontface = 'bold',ylim = c(.23,.45))
-  geom_label_repel(size=3,max.overlaps = 60,fontface = 'bold',ylim = c(.5,1))
-
-
-ggsave(paste0("anno_",outquantile,pbs1,"_pbs1_persite_chr6.png"),width=10,height=5)
-
-
-nolabel<-ggplot(newdata, aes(x=SNPs,y=pbs1,color=as.factor(parse_number(CHROM))))+
-  geom_point(size=1.5)+theme_classic(base_size=14)+ggtitle(custom_title)+
-  scale_x_continuous(label = axis_set$CHROM, breaks = axis_set$center) +
-  scale_color_manual(values = rep(c(color1, "gray"), unique(length(axis_set$CHROM))))+
-  theme(legend.position = "none",
-        panel.border = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.text.x = element_text(angle = 60, size = 8, vjust = 0.5))+
-  #ylim( c(0, max(alldata$pbs1) ))
-  xlab("Chromosome")+ylab(TeX("$PBS_{HAE+JEJU}$"))  
-
-
-ggsave(paste0(outquantile,pbs1,"_pbs1_persite.png"),width=10,height=5)
 
 ###########Find outliers PBS########
 cutoff<-quantile(pbs_fil2plot$pbs1,.9999)
