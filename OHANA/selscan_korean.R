@@ -2,8 +2,8 @@ library(ggplot2)
 library(tidyverse)
 library(ggrepel)
 
-setwd("~/Documents/Berkeley/haenyeo/selscan")
-annotation_grch38 <- read.delim("~/Documents/Berkeley/haenyeo/pbsScanv11/annotation_grch38.bed")
+#Bed format of GrCh38 assembly annotation
+annotation_grch38 <- read.delim("annotation_grch38.bed")
 
 k=0
 outquantile<-.999
