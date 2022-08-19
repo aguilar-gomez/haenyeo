@@ -1,29 +1,28 @@
-setwd("~/Documents/Berkeley/haenyeo/pca/pcav11/")
-
 library(ggplot2)
 library(ggrepel)
 library(gplots)
 
 
-eigvectors <- read.table("pcapops.allchr.maf2.v11.eigenvec")
-eigenval <- read.table("pcapops.allchr.maf2.v11.eigenval")
+eigvectors <- read.table("name.eigenvec")
+eigenval <- read.table("name.eigenval")
 
 
 vecs<-eigvectors[c(3:22)]
-haenyeo_meta <- read.delim("~/Documents/Berkeley/haenyeo/haenyeo_meta.tsv")
+haenyeo_meta <- read.delim("haenyeo_meta.tsv")
 bamnames<-eigvectors$V2[c(1:75)]
 Number<-as.numeric(sapply(strsplit(bamnames,"\\_"), `[`, 1))
 samples<-data.frame(bamnames,Number)
+
 #1000 genomes
-Female_Phase3_list <- read.delim2("~/Documents/Berkeley/haenyeo/pca/Female_Phase3_list", header=FALSE)
+Female_Phase3_list <- read.delim2("Female_Phase3_list", header=FALSE)
 meta_out<-Female_Phase3_list[,c(1,4,5,6)]
 colnames(meta_out)<-c("bamnames","pop","group","continent")
 
-AsianFemale_Phase3_list <- read.delim2("../pcav3/AsianFemale_Phase3_list", header=FALSE)
+AsianFemale_Phase3_list <- read.delim2("AsianFemale_Phase3_list", header=FALSE)
 meta_out2<-AsianFemale_Phase3_list[,c(1,4,5,6)]
 colnames(meta_out2)<-c("bamnames","pop","group","continent")
 
-CHB_Phase3_list <- read.delim2("../pcav6/CHBlist", header=FALSE)
+CHB_Phase3_list <- read.delim2("CHBlist", header=FALSE)
 meta_out3<-CHB_Phase3_list[,c(1,4,5,6)]
 colnames(meta_out3)<-c("bamnames","pop","group","continent")
 
@@ -41,7 +40,6 @@ eigvalue <- eigenval$V1/sum(eigenval$V1);
 cat(signif(eigvalue , digits=3)*100,"\n");
 
 # Plot
-
 
 col1 <- c(finaldata$Group[c(1:75)],finaldata$group[c(76:223)],
           rep("KOREA1K",75),finaldata$group[c(299:459)])
@@ -63,12 +61,11 @@ alldata$Pop3 <- ifelse(col1==0, "JEJ",
                                     ifelse(col1==2, "SEO",
                                            ifelse(col1=="KOREA1K", "KOR",
                                 col1))))
-#alldata2<-alldata[-c(223,198),]
-alldata2<-alldata
+
 famfile<-data.frame(alldata2$Population,alldata2$bamnames,0,0,0,-9)
-write.table(famfile,file="pcapops.allchr.maf5.v6.fam", quote = F,row.names = F,col.names = F,sep = "\t")
+write.table(famfile,file="pcapops.allchr.maf5.fam", quote = F,row.names = F,col.names = F,sep = "\t")
 famfilepop3<-data.frame(alldata2$Pop3,alldata2$bamnames,0,0,0,-9)
-write.table(famfilepop3,file="threeletterpopv6.fam", quote = F,row.names = F,col.names = F,sep = "\t")
+write.table(famfilepop3,file="threeletterpop.fam", quote = F,row.names = F,col.names = F,sep = "\t")
 
 comp<-c(2,3)
 title <- paste("PC",comp[1]," (",signif(eigvalue[comp[1]], digits=3)*100,"%)"," / PC",comp[2]," (",signif(eigvalue[comp[2]], digits=3)*100,"%)",sep="",collapse="")
@@ -87,13 +84,12 @@ ggplot() + geom_point(data=alldata, aes_string(x=x_axis, y=y_axis, color="Popula
   theme(panel.border = element_rect(colour = "black", fill=NA, size=2), panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
-ggsave(filename=paste0("PCA_version11_maf2","PC",comp[1],"PC",comp[2],".png"),width=7,height=4)
+ggsave(filename=paste0("PCA_","PC",comp[1],"PC",comp[2],".png"),width=7,height=4)
 
 barplot(cumsum(eigvalue),xlab = "Number of Components",ylab="Variance (%)",main="PCA Haenyeo")
 
 
 barplot(eigvalue,xlab = "Number of Components",ylab="Variance (%)",main="PCA Haenyeo")
-
 
 
 #Plot with labels
@@ -112,5 +108,4 @@ ggplot() + geom_point(data=alldata, aes_string(x=x_axis, y=y_axis, color="Popula
   geom_text_repel(data=subsetvietnam, aes(x=PC1, y=PC2,label=rownames(subsetvietnam), color="Population"))
 
 
-ggsave(filename=paste0("PCA_haenyeo_koreank_maf5_labels_fil2","PC",comp[1],"PC",comp[2],".png"),width=9,height=4)
-alldata[c(223,198),1]
+ggsave(filename=paste0("PCA_labels","PC",comp[1],"PC",comp[2],".png"),width=9,height=4)
