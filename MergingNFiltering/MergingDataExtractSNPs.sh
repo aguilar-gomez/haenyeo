@@ -40,7 +40,7 @@ bcftools view -m2 -M2 -v snps -R ./masks/20160622.allChr.mask.bed -o $chr.mask.v
 done
 
 #Exclude minor allele frequency to remove samples that are non-variant. 
-#Because it is human populations some sites are flagges ad SNPs because they are variant in other human populations (not our specific subset)
+#Because it is human populations some sites are flagged as SNPs because they are variant in other human populations (not our specific subset)
 #Apply excess of heterozygosity filter
 for chr in chr{1..22}
 do  
