@@ -1,5 +1,8 @@
 OHANA=$PATHTOOHANA
 
+#Recode with plink 
+plink --bfile pcapops.allchr.maf2.v11 --recode 12 tab --out haenyeo.forohanav11 
+
 #Convert plink format to OHANA
 $OHANA/convert ped2dgm haenyeo.forohanav11.ped haenyeov11.dgm 
 
