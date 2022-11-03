@@ -1,6 +1,6 @@
 # haenyeo
 
-*MergingNFiltering*
+**MergingNFiltering**
 
 Using bcftools and plink
   - filter SNPS
