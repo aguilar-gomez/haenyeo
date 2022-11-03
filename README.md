@@ -1,6 +1,8 @@
 # haenyeo
 
 **1. Preprocessing Reads**
+  - Clean reads using *prinseq-lite*
+  - Mapping using *bwa-mem*
 
 **2. Imputation**
 
