@@ -5,10 +5,11 @@
   - Mapping using *bwa-mem*
 
 **2. Imputation**
+  - Imputation using 400 individuals from Korea1K Project
+  - Using *GLIMPSE*
 
 **3. Merging and filtering**
-
-Using *bcftools* and *plink*
+  - Using *bcftools* and *plink*
   - filter SNPS
   - remove related individuals
   - PCA plot
