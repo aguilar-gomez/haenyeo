@@ -33,3 +33,10 @@ nohup bcftools view -R missingCount.pos_version12_chr allchr.version11.vcf.gz -O
 
 #We decided to remove the positions with a switch in reference allele because we cannot be sure the fixed differences are not due to that and the proportion of SNPs removed is very small. Other positions in LD with them will give us the results if they should be kept
 bcftools filter -e 'INFO=REF_SWITCH' allchr.version12.vcf.gz -Oz -o allchr.version13.vcf.gz
+
+#Convert to plink again
+plink --vcf allchr.version13.vcf.gz --make-bed --out allchr.version13 --remove samples2removev11 --const-fid 0 --vcf-half-call m
+ 
+#Principal Component Analysis
+plink --bfile allchr.version13 --pca --threads 10
+
