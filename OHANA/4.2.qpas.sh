@@ -10,5 +10,5 @@ e=0.08 # minimum delta for likelihood
 for k in $(seq $Kmin $Kmax);
 do 
 echo "running qpas with k $k"
-qpas haenyeov133percent.dgm -k $k -qo heanyeo_v13_k${k}_e${e}_mi${mi}_q.matrix -fo heanyeo_v13_k${k}_e${e}_mi${mi}_f.matrix -e ${e} -mi $mi > out.qpas${k}mi${mi}e${e} &
+$OHANA/qpas haenyeov133percent.dgm -k $k -qo heanyeo_v13_k${k}_e${e}_mi${mi}_q.matrix -fo heanyeo_v13_k${k}_e${e}_mi${mi}_f.matrix -e ${e} -mi $mi > out.qpas${k}mi${mi}e${e} &
 done
