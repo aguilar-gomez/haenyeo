@@ -12,6 +12,8 @@
   - Using *bcftools* and *plink*
   - filter SNPS
   - remove related individuals
+  - maximum amount of genotypes missing 
+  - remove positions with change in reference allele
   - PCA plot
   
  **4. OHANA**
