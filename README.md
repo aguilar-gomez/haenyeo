@@ -20,3 +20,7 @@
   - Convert from plink to OHANA format
   - Structure analysis using *qpas*
   - Selection scan using *selscan*
+  - Plotting of scan and selection of SNPs
+  
+ **5. Genetic association**
+  - Test particular SNPs using *gemma*
