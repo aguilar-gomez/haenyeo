@@ -1,5 +1,7 @@
 Kmin=3 # min value of k
 Kmax=9 # maximum value of k
+mi=450 # max number of iterations
+e=0.08 # minimum delta for likelihood
 
 for k in $(seq $Kmin $Kmax);
 do
