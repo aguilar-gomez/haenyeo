@@ -1,15 +1,17 @@
+
+#k6 
 #Generate matrices with value added
-for k in $(seq 0 7);
+for k in $(seq 0 5);
 do
-cmatrixK.py c.matrix_k8 $k 10
+cmatrixK.py c.matrix_k6 $k 10
 done
  
 #Run qpas to calculate allele frequency matrix for all positions using the inferred components with k=7
-$OHANA/qpas haenyeov13.dgm -k 7 -qi heanyeo_v13_k8_e0.08_mi450_q.matrix -fo haenyeov13_k7.full.f.matrix -e 0.08 -mi 450 >out.qpas.full &
+$OHANA/qpas haenyeov14.dgm -k 6 -qi heanyeo_v14_k6_e0.08_mi450_q.matrix -fo haenyeov14_k6.full.f.matrix -e 0.08 -mi 450 >out.qpas.full &
 
 #Run selscan
 for k in $(seq 0 6);
 do 
 echo "running selscan with selection in component k $k"
-$OHANA/selscan haenyeov13.dgm haenyeov13_k7.full.f.matrix c.matrix_k7 -cs c.matrix_k7selK${k}_h10 > scan.haenyeok$k.txt &
+$OHANA/selscan haenyeov14.dgm haenyeov14_k6.full.f.matrix c.matrix_k6 -cs c.matrix_k6selK${k}_h10 > scan.haenyeok$k.txt &
 done
