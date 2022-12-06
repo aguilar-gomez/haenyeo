@@ -6,7 +6,7 @@ do
 cmatrixK.py c.matrix_k6 $k 10
 done
  
-#Run qpas to calculate allele frequency matrix for all positions using the inferred components with k=7
+#Run qpas to calculate allele frequency matrix for all positions using the inferred components with k=6
 $OHANA/qpas haenyeov14.dgm -k 6 -qi heanyeo_v14_k6_e0.08_mi450_q.matrix -fo haenyeov14_k6.full.f.matrix -e 0.08 -mi 450 >out.qpas.full &
 
 #Run selscan
