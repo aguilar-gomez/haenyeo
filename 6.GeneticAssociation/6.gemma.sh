@@ -8,7 +8,8 @@ cp /space/s2/diana/korea/haenyeo/June2022/plink/gemma/assotest_haenyeov12.fam as
 gemma -bfile assotest_haenyeov14 -gk 2 -o relatedness_matrix.haenyeo
 
 #Extract positions
- plink --bfile assotest_haenyeov14 --out assotest_haenyeov14_pos2test --extract SNP2test --make-bed
+plink --bfile assotest_haenyeov14 --out assotest_haenyeov14_pos2test --extract SNP2test --make-bed
+plink --bfile assotest_haenyeov14 --out assotest_haenyeov14_allanno --extract posallanno --make-bed
 
 #Get covariate file
 cp /space/s2/diana/korea/haenyeo/June2022/plink/gemma/diving_Cov .
@@ -34,6 +35,8 @@ cp spleen.fam assotest_haenyeov14_pos2test.fam
 
 #Run association
 gemma -bfile assotest_haenyeov14_pos2test -lmm 2 -o spleen_top10SNPs_diveCov -c diving_Cov -k ../gemma_diastolic/output/relatedness_matrix.haenyeo.sXX.txt
+gemma -bfile assotest_haenyeov14_allanno -lmm 2 -o spleen_posallanno_diveCov -c diving_Cov -k relatedness_matrix.haenyeo.sXX.txt
+gemma -bfile assotest_haenyeov14_allanno -lmm 2 -o diastolic_posallanno_diveCov -c diving_Cov -k relatedness_matrix.haenyeo.sXX.txt
 
 #No dive Cov
 gemma -bfile assotest_haenyeov14_pos2test -lmm 2 -o spleen_top10SNPs -k ../gemma_diastolic/output/relatedness_matrix.haenyeo.sXX.txt
