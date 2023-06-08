@@ -86,13 +86,24 @@ OUT=Ligated/${name}.${chr}.merged.bcf
 /home/diana/programs/GLIMPSE/static_bins/GLIMPSE_ligate_static --input ${LST} --output $OUT
 bcftools index -f ${OUT}
 
-#Merge all samples into one file:
-for chr in chr{1..22}
-do  
-echo $chr
-bcftools merge -o haenyeo.$chr.vcf.gz -Oz *$chr.*bcf &
+
+#Phase data
+for bcf in ../Ligated/*merged.bcf
+do
+name=$(echo $bcf|cut -d"/" -f3 |cut -d"." -f1-2); 
+echo $name
+VCF=$bcf
+OUT=$name.phased.bcf
+$GLIMPSE/GLIMPSE_sample_static --input ${VCF} --solve --output ${OUT}
+bcftools index -f ${OUT} 	
 done
 
+#Merge all samples into one file:
+for chr in chr{1..22}
+do
+echo $chr
+bcftools merge -o haenyeo.phased.$chr.vcf.gz -Oz *$chr.*bcf 
+done
  
 
 
