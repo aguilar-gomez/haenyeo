@@ -4,11 +4,15 @@
   - Clean reads using *prinseq-lite*
   - Mapping using *bwa-mem*
 
-**2. Imputation**
+**2. Imputation and Phasing**
   - Imputation using 400 individuals from Korea1K Project
   - Using *GLIMPSE*
 
-**3. Merging and filtering**
+**3. Relatedness**
+  - Calculate relatedness
+  - Remove related individuals
+
+**4. Merging and filtering**
   - Using *bcftools* and *plink*
   - filter SNPS
   - remove related individuals
@@ -16,14 +20,14 @@
   - remove positions with change in reference allele
   - PCA plot
   
- **4. OHANA**
+ **5. OHANA**
   - Convert from plink to OHANA format
   - Structure analysis using *qpas*
   - Selection scan using *selscan*
 
  
-**5. Plotting and selecting SNPs for association**
+**6. Plotting and selecting SNPs for association**
   - Plotting of scan and selection of SNPs
  
-**6. Genetic association**
+**7. Genetic association**
   - Test particular SNPs using *gemma*
