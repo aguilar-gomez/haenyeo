@@ -28,21 +28,34 @@ done
 #Get Strict genome accessibility mask
 wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/working/20160622_genome_mask_GRCh38/StrictMask/20160622.allChr.mask.bed
 
-#Apply mask using option -R (regions)
-#Biallelic SNPs
+#Merge vcfs and add mask
+
 for chr in chr{1..22}
 do  
 echo $chr
-bcftools merge ${chr}.Pops.chr.vcf.gz ${chr}.imputed.vcf.gz --threads 10 -O z -o ${chr}.allsamples.vcf.gz 
-bcftools view -m2 -M2 -v snps -R ./masks/20160622.allChr.mask.bed -o $chr.mask.vcf.gz -O z $chr.allsamples.vcf.gz –threads 15
+bcftools index ${chr}.allK2023Mask.vcf.gz
+bcftools index $chr.female1000genomes.vcf.gz
+bcftools merge ${chr}.allK2023Mask.vcf.gz $chr.female1000genomes.vcf.gz --threads 10 -O z -o ${chr}.allSamples2023.vcf.gz
+bcftools index ${chr}.allSamples2023.vcf.gz
+bcftools view -m2 -M2 -v snps -R 20160622.allChr.mask.bed -o  ${chr}.allSamplesMask2023.vcf.gz  -O z ${chr}.allSamples2023.vcf.gz –threads 15 -S ^samples2exclude
 done
 
-#Exclude minor allele frequency to remove samples that are non-variant. 
-#Because it is human populations some sites are flagged as SNPs because they are variant in other human populations (not our specific subset)
-#Apply excess of heterozygosity filter
+#Apply extra filters
+
 for chr in chr{1..22}
 do  
 echo $chr
-bcftools +fill-tags $chr.mask.vcf.gz  -- -t all|bcftools view -e'ExcHet<=.000001'|bcftools view -e'MAF=0' -O z --threads 5 >  $chr.hetfil.vcf.gz
+bcftools +fill-tags ${chr}.allSamplesMask2023.vcf.gz -- -t all |grep -v 'INFO=REF_SWITCH'|bcftools view -e'ExcHet<=.000001 || MAF=0' -Oz  --threads 5 -o $chr.filteredAlll.vcf.gz
 done
+
+bcftools query -l $chr.filteredAlll.vcf.gz
+
+
+#Maf filter and no missing data
+for chr in chr{1..22}
+do  
+echo $chr
+bcftools view -e 'GT[*] = "mis"' -q 0.01:minor $chr.filteredAlll.vcf.gz -Oz -o $chr.filteredAllMaf1.vcf.gz
+done
+
 
