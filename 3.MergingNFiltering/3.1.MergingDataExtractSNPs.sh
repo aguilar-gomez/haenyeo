@@ -1,12 +1,11 @@
 #Download reference panel from 1000 genomes
 #Reference panel
-
 #!/bin/bash
-for i in {2..22}; 
+for i in {1..22}; 
 do echo $i 
 chr=chr$i
 echo $chr
-wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/ALL.chr2_GRCh38.genotypes.20170504.vcf.gz{,.tbi};
+wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20181203_biallelic_SNV/ALL.${chr}.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz{,.tbi};
 done
 
 
@@ -16,16 +15,15 @@ cat *Phase3|grep "female" > AsianFemale_Phase3_list
 cut -f4 AsianFemale_Phase3_list |uniq -c
 
 #Extract names of samples for bcftools
-cut -f1  Female_Phase3_list> Pops
-cp -s /media/external3/diana/GRCh38_positions/ALL* .
+cut -f1  Female_Phase3_list> indvsamples1000genomes 
 
-#Extract samples option -S, to subset Phase 3 1000 genomes vcfs
-for i in {1..22}; 
-do echo $i 
+for i in {1..22};
+do echo $i
 chr=chr$i
 echo $chr
-bcftools view -S Pops -o $chr.Pops.vcf.gz --force-samples -O z ALL.${chr}_GRCh38.genotypes.20170504.vcf.gz &
+bcftools view -S indvsamples1000genomes -o $chr.female1000genomes.vcf.gz --force-samples -Oz ALL.${chr}.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz &
 done
+
 
 #Get Strict genome accessibility mask
 wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/working/20160622_genome_mask_GRCh38/StrictMask/20160622.allChr.mask.bed
