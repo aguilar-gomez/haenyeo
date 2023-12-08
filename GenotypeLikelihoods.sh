@@ -27,10 +27,10 @@ done
 cat unrelated.bamlist CHS.cramlist > samples.list4angsd
 
 bamlist=samples.list4angsd
-REF/space/s2/diana/korea/reference/GRCh38/grch38.fasta
+REF=/space/s2/diana/korea/reference/GRCh38/grch38.fasta
 
 /home/diana/bin/angsd -bam $bamlist -out HaeKorChs -minInd 100 -setMinDepthInd 1 -minMapQ 25 \
 -minQ 25 -remove_bads 1 -uniqueOnly 1 -only_proper_pairs 1 -GL 1 -doMaf 1 -doMajorMinor 4 -doGlf 2 \
--SNP_pval 1e-6 -nThreads 20 -ref $REF -setMaxDepthInd 50 -doCounts 1 -skipTriallelic 1 -dosnpstat 1 \
--doHWE 1 -sb_pval 1e-4 -hetbias_pval 1e-6 -doGeno 3 -rf autosomes \
+-SNP_pval 1e-6 -nThreads 16 -ref $REF -setMaxDepthInd 50 -doCounts 1 -skipTriallelic 1 -dosnpstat 1 \
+-doHWE 1 -sb_pval 1e-4 -hetbias_pval 1e-6 -rf autosomes \
 -edge_pval 1e-4 -mapQ_pval 1e-4
