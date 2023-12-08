@@ -8,4 +8,6 @@ wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_proj
 done < CHSindividuals
 
 
-
+for file in *.cram; do
+  mv "$file" "${file%.alt_bwamem_GRCh38DH.20150718.CHS.low_coverage.cram}.cram"
+done
