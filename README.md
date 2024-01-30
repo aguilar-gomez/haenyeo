@@ -31,3 +31,7 @@
  
 **7. Genetic association**
   - Test particular SNPs using *gemma*
+
+**8. Divergence time and Population Size**
+  - Use *RELATE* that uses Ancestral Recombination Graphs
+  - Use  *SMC++* that combines the computational efficiency of the SFS and the advantage of utilizing LD information in coalescent HMMs
