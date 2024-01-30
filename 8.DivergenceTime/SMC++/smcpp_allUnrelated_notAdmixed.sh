@@ -20,6 +20,8 @@ nohup bash Kor_vcf2smc.sh > outKORconversionUA &
 
 smc++ estimate -o KOR 1.25e-8 -p 0.5 --thinning 400 --cores 8 KOR.*.smc.gz
 
+smc++ estimate -o KOR2 1.25e-8 -p 0.5 --thinning 800 --cores 16 KOR.*.smc.gz
+
 #####################################################################################
 #Jej_vcf2smc.sh
 #Convert vcf for each chromosome
@@ -41,6 +43,8 @@ done
 nohup bash Jej_vcf2smc.sh > outJEJconversionUA &
 
 smc++ estimate -o JEJ 1.25e-8 -p 0.5 --thinning 400 --cores 8 JEJ.*.smc.gz
+
+smc++ estimate -o JEJ2 1.25e-8 -p 0.5 --thinning 800 --cores 16 JEJ.*.smc.gz
 
 #Create datasets containing the joint frequency spectrum for both populations:
 #####################################################################################
@@ -101,3 +105,8 @@ nohup bash JejKor_vcf2smc.sh > outJEJKORconversionUA &
 
 smc++ split --thinning 800 --cores 16 -o split/ KOR/model.final.json JEJ/model.final.json *.smc.gz
 smc++ plot allChr_Unrelated_notAdmixed_jointEstimation.pdf split/model.final.json
+
+
+smc++ split --thinning 800 --cores 16 -o split2/ KOR2/model.final.json JEJ2/model.final.json *.smc.gz
+smc++ plot allChr_Unrelated_notAdmixed_jointEstimation_thinning800.pdf split2/model.final.json
+
