@@ -70,4 +70,4 @@ nohup bash JejKor_vcf2smcS2.sh > outJEJKORconversionSub &
 #Run split to refine the marginal estimates into an estimate of the joint demography:
 
 smc++ split -o split/ KOR/model.final.json JEJ/model.final.json *.smc.gz
-smc++ plot allChr_allSamples_joint.pdf split/model.final.json
+smc++ plot allChr_allSamples_jointS2.pdf split/model.final.json
