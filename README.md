@@ -32,3 +32,10 @@
 **7. Divergence time and Population Size**
   - Use *RELATE* that uses Ancestral Recombination Graphs
   - Use  *SMC++* that combines the computational efficiency of the SFS and the advantage of utilizing LD information in coalescent HMMs
+
+**8. Testing selection over time**
+  - Use *CLUES2* to test selection over time in our candidate SNP
+
+**9. Demographic inference**
+  - Use *Treemix* to infer population split and admixture events
+  - Use *Admixture Bayes*
