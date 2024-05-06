@@ -33,36 +33,16 @@ paste -d "\t" jej_kor.weir.fst  jej_chinese.weir.fst kor_chinese.weir.fst | cut 
 
 
 
-
+#Delete below
 bedtools intersect -wa -wb -a HAE_JEJU_pbs_outliers_top_persitepbs1_25.bed -b annotation_grch38.bed |cut -f1-4,8>HAE_JEJU_pbs_anno25.bed
-
-
 bedtools intersect -wa -wb -a HAE_JEJU_pbs_outliers_top_persite_chr6pbs1_25.bed -b annotation_grch38.bed |cut -f1-4,8>HAE_JEJU_pbs_anno25_chr6.bed
-
-
-
-
-
-
 After filtering, kept 5006988 out of a possible 5006988 Sites
-
 nohup sh persite_fst_missingCount.sh >out.missing.fst &
 paste -d "\t"  *MC*fst | cut -f1-3,6,9 |grep -v "nan" > hsc4pbsMC
-
 paste -d "\t"  haejeju_seoulMC.weir.fst haejeju_chineseMC.weir.fst  seoul_chineseMC.weir.fst | cut -f1-3,6,9 |grep -v "nan" > hsc4pbsMC
-
 haejeju_seoulMC.weir.fst haejeju_chineseMC.weir.fst  seoul_chineseMC.weir.fst
 bedtools intersect -wa -wb -a HAE_JEJU_pbs_outliers_top_persitepbs1_23.bed -b annotation_grch38.bed |cut -f1-4,8>HAE_JEJU_pbs_anno23.bed
-
 grep "chr6_26746360" selection_scansv11_missingCount.recode.vcf 
-
 HAE_JEJU_pbs_outliers_top_persitepbs1_3.48.bed
-
 bedtools intersect -wa -wb -a HAE_JEJU-SEOULfst_outliers_top_persitefst01_25.bed-b annotation_grch38.bed |cut -f1-4,8>HAE_JEJU-SEOUL_fst_anno25.bed
-
-
-
-
-
-
 bedtools intersect -wa -wb -a HAE_JEJU_pbs_outliers_top_persitepbs2_2.bed -b annotation_grch38.bed |cut -f1-4,8>HAE_JEJUpbs2_anno2.bed
