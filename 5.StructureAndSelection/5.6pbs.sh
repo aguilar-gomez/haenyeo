@@ -31,7 +31,8 @@ vcftools --vcf selection_scans.vcf  \
 
 paste -d "\t" jej_kor.weir.fst  jej_chinese.weir.fst kor_chinese.weir.fst | cut -f1-3,6,9 |grep -v "nan" > JEJKORCHB4pbs
 
-
+#Run PBS script
+Rscript PBSfromvcftools.R titleOfPlot pop0 pop1 pop2 outquantile color pop012pbs name
 
 #Delete below
 bedtools intersect -wa -wb -a HAE_JEJU_pbs_outliers_top_persitepbs1_25.bed -b annotation_grch38.bed |cut -f1-4,8>HAE_JEJU_pbs_anno25.bed
