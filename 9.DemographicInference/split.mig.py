@@ -21,6 +21,7 @@ parser.add_argument("n_sim", type=int, help="number of simulations")
 dataset="KorJej"
 
 args = parser.parse_args()
+parser.add_argument("--n_sim", type=int, help="number of simulations")
 
 dd = dadi.Misc.make_data_dict_vcf("KoreanJeju.vcf.gz", "popAssignment")
 fs = dadi.Spectrum.from_data_dict(dd, ['KOR', 'JEJ'],projections=[108,51], polarized = False)
