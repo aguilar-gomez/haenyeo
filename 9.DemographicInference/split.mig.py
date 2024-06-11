@@ -26,6 +26,8 @@ args = parser.parse_args()
 dd = dadi.Misc.make_data_dict_vcf("KoreanJeju.vcf.gz", "popAssignment")
 inputfs = dadi.Spectrum.from_data_dict(dd, ['KOR', 'JEJ'],projections=[108,51], polarized = False)
 
+inputfs.to_file("KoreanJeju.input.fs")
+
 #Fisher-Wright Fst
 Fst = inputfs.Fst()
 print(Fst)
