@@ -24,12 +24,12 @@ args = parser.parse_args()
 
 
 dd = dadi.Misc.make_data_dict_vcf("KoreanJeju.vcf.gz", "popAssignment")
-fs = dadi.Spectrum.from_data_dict(dd, ['KOR', 'JEJ'],projections=[108,51], polarized = False)
+inputfs = dadi.Spectrum.from_data_dict(dd, ['KOR', 'JEJ'],projections=[108,51], polarized = False)
 
 #Fisher-Wright Fst
-Fst = fs.Fst()
+Fst = inputfs.Fst()
 print(Fst)
-ns = fs.sample_sizes
+ns = inputfs.sample_sizes
 
 
 ############### Specifying a model ########################
