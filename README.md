@@ -27,7 +27,7 @@
   - Plotting of scan and selection of SNPs
  
 **6. Genetic association**
-  - Test particular SNPs using *gemma*
+  - Test particular SNPs using *PLINK*
 
 **7. Divergence time and Population Size**
   - Use *RELATE* that uses Ancestral Recombination Graphs
