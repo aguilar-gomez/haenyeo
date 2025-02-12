@@ -2,7 +2,7 @@
  plink --file haenyeo.forohanav14 --out assotest_haenyeov14 --keep samples2keep --make-bed
 
 #Modify the fam file to include phenotypes
-cp /space/s2/diana/korea/haenyeo/June2022/plink/gemma/assotest_haenyeov12.fam assotest_haenyeov14.fam
+cp /space/s2/diana/korea/haenyeo/June2022/plink/assotest_haenyeov12.fam assotest_haenyeov14.fam
 
 #Calculate relatedness matrix with all positions
 gemma -bfile assotest_haenyeov14 -gk 2 -o relatedness_matrix.haenyeo
