@@ -1,5 +1,9 @@
 # haenyeo
+## Publication associated
+Aguilar-Gómez, D., Bejder, J., Andreasen, J., Tristani-Firouzi, M., Ko, Y., Nordsborg, N., Lee, J. Y., Nielsen, R., & Ilardo, M. (In press, Cell Reports.). Adaptation to diving in the Haenyeo breath-hold divers of Korea
+https://doi.org/10.1016/j.celrep.2025.115577
 
+## Analysis
 **1. Preprocessing Reads**
   - Clean reads using *prinseq-lite*
   - Mapping using *bwa-mem*
